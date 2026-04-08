@@ -10,8 +10,8 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 
 # 🔥 IMPORTS DESPUÉS DEL PATH
-from app.db.database import Base
-from app.models.user import User
+from app.db.base import Base
+
 
 config = context.config
 
