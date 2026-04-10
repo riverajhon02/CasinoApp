@@ -24,8 +24,9 @@ class UserResponse(BaseModel):
     id: int
     email: EmailStr
     is_active: bool
-    perfil: Optional[PerfilMe]
     role: Optional[RoleResponse]
+    perfil: Optional[PerfilMe]
+   
 
     class Config:
         from_attributes = True 

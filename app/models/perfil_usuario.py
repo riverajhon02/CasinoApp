@@ -13,7 +13,6 @@ class PerfilUsuario(Base):
 
     nombres = Column(String, nullable=False)
     apellidos = Column(String, nullable=False)
-    correo = Column(String, nullable=False, unique=True)
     telefono = Column(String, nullable=True)
     
 
