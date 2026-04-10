@@ -7,6 +7,7 @@ from app.schemas.centro_costo import (
 )
 from app.db.database import get_db
 from app.api.controllers import centro_costo as controller
+from app.api.deps import require_role
 
 router = APIRouter(prefix="/costos", tags=["Centros de Costo"])
 
@@ -25,22 +26,19 @@ def obtener(centro_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=CentroCostoResponse)
-def crear(centro: CentroCostoCreate, db: Session = Depends(get_db)):
+def crear(centro: CentroCostoCreate, db: Session = Depends(get_db),user =Depends(require_role("ADMIN"))):
     return controller.crear_centro(db, centro)
 
 
 @router.put("/{centro_id}", response_model=CentroCostoResponse)
-def actualizar(centro_id: int, centro: CentroCostoUpdate, db: Session = Depends(get_db)):
+def actualizar(centro_id: int, centro: CentroCostoUpdate, db: Session = Depends(get_db),user =Depends(require_role("ADMIN"))):
     return controller.actualizar_centro(db, centro_id, centro)
 
 
 @router.delete("/{centro_id}")
-def eliminar(centro_id: int, db: Session = Depends(get_db)):
+def eliminar(centro_id: int, db: Session = Depends(get_db),user =Depends(require_role("ADMIN"))):
     return controller.eliminar_centro(db, centro_id)
 
 @router.patch("/{centro_id}/activar")
-def activar(
-    centro_id: int,
-    db: Session = Depends(get_db)
-):
+def activar(centro_id: int,db: Session = Depends(get_db),user =Depends(require_role("ADMIN"))):
     return controller.activar_centro(db, centro_id)

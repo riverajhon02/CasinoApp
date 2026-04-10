@@ -2,6 +2,7 @@ from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from sqlalchemy.orm import Session
+from fastapi import status
 
 from app.core.config import settings
 from app.db.database import get_db
@@ -30,3 +31,16 @@ def get_current_user(
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
     return user  # ✅ ahora sí es objeto
+
+def require_role(role_name: str):
+    def role_checker(user: User = Depends(get_current_user)):
+
+        if not user.role or user.role.nombre != role_name:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="No tienes permisos para esta acción"
+            )
+
+        return user
+
+    return role_checker
