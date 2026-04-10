@@ -38,7 +38,7 @@ class PerfilUsuarioResponse(PerfilUsuarioBase):
     user_id: int
 
     class Config:
-        orm_mode = True
+        from_atributes = True
 
 class PerfilUsuarioUpdate(BaseModel):
     empresa_id: Optional[int] = None
@@ -46,8 +46,6 @@ class PerfilUsuarioUpdate(BaseModel):
 
     nombres: Optional[str] = None
     apellidos: Optional[str] = None
-
-    correo: Optional[EmailStr] = None
     telefono: Optional[str] = None
 
     class Config:

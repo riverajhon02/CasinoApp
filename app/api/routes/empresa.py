@@ -3,12 +3,13 @@ from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.schemas.empresa import EmpresaCreate, EmpresaResponse, EmpresaUpdate
 from app.api.controllers import empresa as controller
+from app.api.deps import require_role
 
 router = APIRouter(prefix="/empresas", tags=["Empresas"])
 
 
 @router.post("/", response_model=EmpresaResponse)
-def crear(data: EmpresaCreate, db: Session = Depends(get_db)):
+def crear(data: EmpresaCreate, db: Session = Depends(get_db), user =Depends(require_role("ADMIN"))):
     return controller.crear_empresa(db, data)
 
 
@@ -23,15 +24,15 @@ def obtener(empresa_id: int, db: Session = Depends(get_db)):
 
 
 @router.put("/{empresa_id}", response_model=EmpresaResponse)
-def actualizar(empresa_id: int, data: EmpresaUpdate, db: Session = Depends(get_db)):
+def actualizar(empresa_id: int, data: EmpresaUpdate, db: Session = Depends(get_db),user =Depends(require_role("ADMIN"))):
     return controller.actualizar_empresa(db, empresa_id, data)
 
 
 @router.delete("/{empresa_id}")
-def eliminar(empresa_id: int, db: Session = Depends(get_db)):
+def eliminar(empresa_id: int, db: Session = Depends(get_db),user =Depends(require_role("ADMIN"))):
     return controller.eliminar_empresa(db, empresa_id)
 
 
 @router.patch("/{empresa_id}/activar")
-def activar(empresa_id: int, db: Session = Depends(get_db)):
+def activar(empresa_id: int, db: Session = Depends(get_db), user =Depends(require_role("ADMIN"))):
     return controller.activar_empresa(db, empresa_id)
