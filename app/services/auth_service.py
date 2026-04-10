@@ -6,6 +6,7 @@ from fastapi import HTTPException, status
 from app.models.user import User
 from app.core.security import verify_password, hash_password, create_access_token, create_refresh_token
 
+
 def authenticate_user(db: Session, username: str, password: str):
     user = db.query(User).filter(User.username == username).first()
     

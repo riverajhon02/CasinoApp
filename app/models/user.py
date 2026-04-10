@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy.orm import relationship
 from app.db.database import Base
+
 
 class User(Base):
     __tablename__ = "users"
@@ -9,3 +11,5 @@ class User(Base):
     username = Column(String, unique=True, index=True)
     password = Column(String)
     is_active = Column(Boolean, default=True)
+    
+    perfil = relationship("PerfilUsuario", back_populates="user", uselist=False)

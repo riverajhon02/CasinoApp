@@ -5,6 +5,12 @@ class EmpresaBase(BaseModel):
     nit:str
     estado: bool = True
 
+class EmpresaMe(BaseModel):
+    nombre: str  
+     
+    class Config:
+        from_attributes = True 
+
 class EmpresaCreate(EmpresaBase):
     pass
 

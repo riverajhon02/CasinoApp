@@ -14,3 +14,10 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+# 🔥 FORZAR CARGA DE MODELOS
+import app.models.user
+import app.models.perfil_usuario
+import app.models.centro_costo
+import app.models.empresa        

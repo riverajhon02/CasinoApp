@@ -12,6 +12,7 @@ class CentroCostoUpdate(BaseModel):
 
 class CentroCostoResponse(CentroCostoBase):
     id: int
+    nombre: str
 
     class Config:
         from_attributes = True
