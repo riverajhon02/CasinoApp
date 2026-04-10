@@ -1,6 +1,9 @@
 from pydantic import BaseModel, EmailStr
+from app.schemas.perfil_usuario import PerfilMe
+from typing import Optional
 
 from pydantic import BaseModel, EmailStr, Field
+from app.schemas.perfil_usuario import PerfilUsuarioBase
 
 class UserCreate(BaseModel):
     username: str
@@ -10,8 +13,17 @@ class UserCreate(BaseModel):
 class UserLogin(BaseModel):
     username: str
     password: str
-    
+
+class EmpresaMe(BaseModel):
+    nombre: str
+    class Config:
+        from_atributes = True  
+
 class UserResponse(BaseModel):
     id: int
-    username: str
-    email: EmailStr   
+    email: EmailStr
+    is_active: bool
+    perfil: Optional[PerfilMe]
+
+    class Config:
+        from_attributes = True 
