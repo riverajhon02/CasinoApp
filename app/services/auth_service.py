@@ -4,6 +4,7 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException, status
 
 from app.models.user import User
+from app.models.role import Role
 from app.core.security import verify_password, hash_password, create_access_token, create_refresh_token
 
 
@@ -22,6 +23,7 @@ def create_user(db: Session, username: str, email: str, password: str):
 
     # 🔍 1. VALIDACIONES PREVIAS (UX)
     existing_user = db.query(User).filter(User.username == username).first()
+    role_user = db.query(Role).filter(Role.nombre == "USER").first()
     if existing_user:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -39,7 +41,8 @@ def create_user(db: Session, username: str, email: str, password: str):
     user = User(
         username=username,
         email=email,
-        password=hash_password(password)
+        password=hash_password(password),
+        role_id =role_user.id
     )
 
     # 💥 3. CONTROLAR ERRORES DE BD (concurrencia)

@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from app.schemas.perfil_usuario import PerfilMe
+from app.schemas.role import RoleResponse
 from typing import Optional
 
 from pydantic import BaseModel, EmailStr, Field
@@ -24,6 +25,7 @@ class UserResponse(BaseModel):
     email: EmailStr
     is_active: bool
     perfil: Optional[PerfilMe]
+    role: Optional[RoleResponse]
 
     class Config:
         from_attributes = True 

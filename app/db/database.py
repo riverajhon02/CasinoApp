@@ -20,4 +20,5 @@ def get_db():
 import app.models.user
 import app.models.perfil_usuario
 import app.models.centro_costo
-import app.models.empresa        
+import app.models.empresa
+import app.models.role   
