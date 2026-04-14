@@ -59,6 +59,8 @@ git commit -m "feat: agrega validación de login (#123)"
 
 #  Flujo de Trabajo Paso a Paso
 
+Instalar dependencias pip install -r requirements.txt
+
 ## 1 Actualizar tu rama local
 
 ```bash
