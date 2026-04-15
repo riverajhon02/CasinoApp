@@ -37,7 +37,10 @@ def create_perfil(db: Session, perfil: PerfilUsuarioCreate, user_id: int):
             detail=f"Error al guardar en la base de datos: {str(e)}"
         )
 
-
+def get_perfil_by_user(db: Session, user_id: int):
+    return db.query(PerfilUsuario).filter(
+        PerfilUsuario.user_id == user_id
+    ).first()
 
 def delete_perfil(db: Session, perfil: PerfilUsuario):
     db.delete(perfil)

@@ -1,6 +1,6 @@
 from app.db.database import Base
 
-# 🔥 IMPORTAS TODOS LOS MODELOS AQUÍ
+#Modelos
 from app.models.user import User
 from app.models.perfil_usuario import PerfilUsuario
 from app.models.centro_costo import CentroCosto
