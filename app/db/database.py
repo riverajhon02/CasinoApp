@@ -30,3 +30,4 @@ import app.models.perfil_usuario
 import app.models.centro_costo
 import app.models.empresa
 import app.models.role   
+import app.models.refresh_token

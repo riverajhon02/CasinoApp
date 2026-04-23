@@ -1,10 +1,11 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-
+from datetime import datetime, timedelta
+from app.core.config import settings
 from fastapi import HTTPException, status
-
 from app.models.user import User
 from app.models.role import Role
+from app.models.refresh_token import RefreshToken
 from app.core.security import verify_password, hash_password, create_access_token, create_refresh_token
 
 
@@ -67,6 +68,16 @@ def login_user(db: Session, username: str, password: str):
 
     access_token = create_access_token({"sub": user.username})
     refresh_token = create_refresh_token({"sub": user.username})
+
+    # 🔥 GUARDAR EN BD
+    db_token = RefreshToken(
+        user_id=user.id,
+        token=refresh_token,
+        expires_at=datetime.utcnow() + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
+    )
+
+    db.add(db_token)
+    db.commit()
 
     return {
         "access_token": access_token,
