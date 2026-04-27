@@ -15,6 +15,8 @@ class UserLogin(BaseModel):
     username: str
     password: str
 
+
+
 class EmpresaMe(BaseModel):
     nombre: str
     class Config:
