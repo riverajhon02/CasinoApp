@@ -60,16 +60,12 @@ def create_user(db: Session, username: str, email: str, password: str):
             detail="El usuario o email ya existe (conflicto en BD)"
         )
 
-def login_user(db: Session, username: str, password: str):
-    user = authenticate_user(db, username, password)
-    
-    if not user:
-        return None
+def generate_tokens(db: Session, user: User):
 
     access_token = create_access_token({"sub": user.username})
     refresh_token = create_refresh_token({"sub": user.username})
 
-    # 🔥 GUARDAR EN BD
+    # 🔥 Guardar refresh token en BD
     db_token = RefreshToken(
         user_id=user.id,
         token=refresh_token,
@@ -81,5 +77,6 @@ def login_user(db: Session, username: str, password: str):
 
     return {
         "access_token": access_token,
-        "refresh_token": refresh_token
+        "refresh_token": refresh_token,
+        "token_type": "bearer"
     }
