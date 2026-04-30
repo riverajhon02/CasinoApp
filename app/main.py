@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.routes import auth, users, centro_costo, empresa, perfil_usuario
+from app.api.routes import auth, users, centro_costo, empresa, perfil_usuario, proteina
 import app.db.base  
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -22,6 +22,7 @@ app.include_router(users.router)
 app.include_router(centro_costo.router)
 app.include_router(empresa.router)
 app.include_router(perfil_usuario.router)
+app.include_router(proteina.router)
 
 @app.get("/test-directo")
 def test():
